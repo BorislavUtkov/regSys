@@ -2,22 +2,53 @@
 #include "project.h"
 
 regSys::regSys(int a_base){
-        a=a_base;
-        printf("base has been created\n");
-    };
-void regSys::getA(){
-        printf("a=%d\n",a); 
+    printf("base has been created\n");
+};
+int regSys::firstMenu()
+{
+    int sM;
+    printf ("___________________________\n");
+    printf("|1 - Sign in             |\n");
+    printf("|2 - Sign Up             |\n");
+    printf("___________________________\n");
+    printf("|Enter a number: ");
+    scanf("%d",&sM);
+    switch (sM){
+    case 1:
+        signIn();
+        break;
+    case 2:
+        signUp();
+        break;
+    default:
+        printf("\n Unknown number, please repeat\n");
+        break;
     }
-void regSys::setA(){
-        printf("'a' set to:");
-        scanf("%d", a);
+    
+}
+
+ 
+ int signUp(){
+
+
+ }
+ int signIn(){
+
+    
+ }
+
+int regSys::regSysMain(){
+    while (endWork)
+    {
+        firstMenu();
+        
     }
+}
+
+
 int main(){
-    regSys abc{100};
-    abc.getA();
-    
-    while (1);
-    
+    regSys alpha{10};
+    alpha.regSysMain();
     return 0;
 }
 
