@@ -12,10 +12,12 @@ protected:
         allRight=0,
         exitByUser=1,
         alreadyTaken=2,
-        sizeErr=3
+        sizeErr=3,
+        mismatchConfirm=4
+
     };
-    // static const int PASSMINSYMB = 6;
-    // static const int PASSMAXSYMB = 30;
+    static const int PASSMINSYMB = 6;
+    static const int PASSMAXSYMB = 30;
     static const int NICKMINSYMB = 6;
     static const int NICKMAXSYMB = 30;
     /*
@@ -27,13 +29,14 @@ protected:
     // vector<pair<int,char[NICKMAXSYMB+1]>> names; 
     vector<string> users; 
     vector<string> passwords; 
-    int errCode=0;       //!переменная используемая для записывания кода ошибки   
-    int counter=0;      //! Счетчик зарегистрированых записей 
-    int maxCount=-1;    //! Максимальное количество записей (-1 = infinity)
-    bool endWork = 1;   //! Флаг для окончания работы основной функции
-    string newNickname; //! Временная переменная для создания ника нового пользователя
-    string newPassword; //! Временная переменная для создания пароля нового пользователя
-    
+    int errCode=0;              //!переменная используемая для записывания кода ошибки   
+    int counter=0;              //! Счетчик зарегистрированых записей 
+    int maxCount=-1;            //! Максимальное количество записей (-1 = infinity)
+    bool endWork = 1;           //! Флаг для окончания работы основной функции
+    string newNickname;         //! Временная переменная для создания ника нового пользователя
+    string newPassword;         //! Временная переменная для создания пароля нового пользователя
+    string confirmPassword;     //! Временная переменная для подтверждения пароля нового пользователя
+    string activeUser="";
 public:
     /*
     *@brief вывод всехимеющихся пользователей

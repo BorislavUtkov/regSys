@@ -5,17 +5,29 @@ regSys::regSys(int a_base){
     printf("base has been created\n");
 };
 void regSys::showAll(){
-   int iteration=0; 
-   for (auto &&i : users)
+    int iteration=0; 
+    for (int i = 0; i < counter; i++)
     {
-        cout<< iteration <<") "<< i <<endl;
-        iteration++;
+        printf("\n%d) ", i);
+        cout << users.at(i) <<" "<< passwords.at(i);
     }
+   
+//    for (auto &&i : users){
+//         cout<< iteration <<") "<< i <<endl;
+//         iteration++;
+//     }
+
+//     iteration=0; 
+//     for (auto &&i : passwords){
+//         cout<< iteration <<") "<< i <<endl;
+//         iteration++;
+//     }
 }
 
 int regSys::firstMenu()
-{
-    int sM;//? todo func CreateTemp-ScanfTemp-Return temp 
+{ 
+    int sM;//? todo func CreateTemp-ScanfTemp-Return temp
+    // cout << "Active user " << activeUser;
     printf ("\n________________________\n");
     printf("|1 - Sign in             |\n");
     printf("|2 - Sign Up             |\n");
@@ -30,7 +42,10 @@ int regSys::firstMenu()
         signIn();
         break;
     case 2:
-        signUp();
+        if (counter < maxCount || maxCount == -1)
+            signUp();
+        else
+            printf("We can't to add you in our society \n");
         break;
     case 3:
         showAll();
@@ -48,11 +63,12 @@ void regSys::signUp(){
     errCode =nameErrCode::allRight;
     system( "cls" );
     do{   
-        //todo Проверка доступности символов
+        //todo Проверка доступности символов (через коды таблицы ASCII)
         switch (errCode)
         {
         case nameErrCode::alreadyTaken:
-            printf("\nNickname already used by other user. ");
+            cout<<newNickname;
+            printf("\n Nickname already used by other user. ");
             printf("\nUse some more your creativity, try again. ");
             break;
         case nameErrCode::sizeErr:
@@ -61,36 +77,74 @@ void regSys::signUp(){
         default:
             break;
         }
+        errCode =nameErrCode::allRight;
         printf("\n0 - Exit: ");
         printf("\nThe number of characters must be in the range [%d:%d]",NICKMINSYMB, NICKMAXSYMB);
         printf("\nEnter new username: ");
         cin >> newNickname ;
         if (newNickname=="0"){      
-            errCode=nameErrCode::exitByUser;    // пользователь решил выйти
+            errCode=nameErrCode::exitByUser;    //! пользователь решил выйти
         } else if (newNickname.size()> NICKMAXSYMB || newNickname.size()< NICKMINSYMB){
-            errCode = nameErrCode::sizeErr;     // ошибка размера имени
-            newNickname="-1";       //флаг ошибки     
+            errCode = nameErrCode::sizeErr;     //! ошибка размера имени
         } else{
             for (int i = 0; i < counter; i++){  
-                if(newNickname == users[i])     // имя уже занято  
+                if(newNickname == users[i])     //! имя уже занято  
                     errCode = nameErrCode::alreadyTaken; 
-                newNickname="-1";   //флаг ошибки 
             }
         }
         system( "cls" );
-        if (errCode==nameErrCode::exitByUser){
-            newNickname="";
-            printf("\n Return to menu");   
-        }else if(newNickname != "-1"){  //проверка флага ошибки
+
+       if(errCode == nameErrCode::allRight){  //проверка флага ошибки
             printf("\n Hello, ");
             cout << newNickname;
-            printf("\n Registation succeful");
-            printf("\n Welcome here <3\n");
-            counter++;
-            users.push_back(newNickname);
         }
     } while (errCode != nameErrCode::allRight && errCode != nameErrCode::exitByUser);
+   
+    //! создание пароля
+    if(errCode==nameErrCode::allRight){
+        do{
+            newPassword="";
+            printf("\n Now let's create password");
+            printf("\nThe number of characters must be in the range [%d:%d]", PASSMINSYMB, PASSMAXSYMB);
+            printf("\n0 - Exit: ");
+            printf("\nEnter a password: ");
+            cin>>newPassword;
+            if (newPassword.size()<PASSMINSYMB || newPassword.size()>PASSMAXSYMB){
+                system( "cls" );
+                printf("\n Size error ");
+                errCode=nameErrCode::sizeErr;
+            }
+            else
+            {
+                printf("\nConfirm a password: ");
+                cin>>confirmPassword;
+                if (confirmPassword != newPassword)
+                {
+                    errCode = nameErrCode::mismatchConfirm;
+                    system( "cls" );
+                    printf("\nPassword mismatch, try again");
+                }
+                else 
+                    errCode=nameErrCode::allRight;
+            }
+        }while(errCode != nameErrCode::allRight && errCode != nameErrCode::exitByUser);
+    }
+
+    if(errCode == nameErrCode::allRight){   //выход из функции по требованию пользователя
+            counter++;
+            passwords.push_back(newPassword);
+            users.push_back(newNickname);
+            system( "cls" );
+            printf("\n Welcome here "); 
+            cout<<newNickname;
+ 
+    }  else if(errCode == nameErrCode::exitByUser){
+            newNickname="";
+            printf("\n Return to menu"); 
+    }
  }
+
+
 void regSys::signIn(){
         printf("\n\n todo\n\n");    
  }
