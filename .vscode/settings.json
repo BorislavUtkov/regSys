@@ -41,6 +41,7 @@
         "numeric": "cpp",
         "utility": "cpp",
         "iosfwd": "cpp",
-        "numbers": "cpp"
+        "numbers": "cpp",
+        "iostream": "cpp"
     }
 }
