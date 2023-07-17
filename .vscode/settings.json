@@ -42,6 +42,8 @@
         "utility": "cpp",
         "iosfwd": "cpp",
         "numbers": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "cstring": "cpp",
+        "istream": "cpp"
     }
 }

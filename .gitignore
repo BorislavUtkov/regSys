@@ -1,0 +1,4 @@
+#ignore all executable
+*.exe
+#test's stuff
+test
