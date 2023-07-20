@@ -45,5 +45,6 @@
         "iostream": "cpp",
         "cstring": "cpp",
         "istream": "cpp"
-    }
+    },
+    "cmake.configureOnOpen": false
 }
